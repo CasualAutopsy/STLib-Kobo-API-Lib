@@ -1,0 +1,11 @@
+{
+    "display_name": "[Dep]Kobold API Library",
+    "loading_order": 1,
+    "requires": [],
+    "optional": [],
+    "js": "expose.js",
+    "author": "CasualAutopsy",
+    "version": "0.1",
+    "homePage": "https://github.com/CasualAutopsy/STLib-Kobo-API-Lib",
+    "auto_update": false
+}
