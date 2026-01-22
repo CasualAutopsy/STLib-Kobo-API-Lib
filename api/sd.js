@@ -3,68 +3,65 @@
  *
  * For koboldcpp, only one model will be returned. If no model is loaded, the list is empty
  * @param {String} host - Kobold base URL
+ * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboSDModels(host){
-    const url = `${host}/sdapi/v1/sd-models`;
-    const header = {
-        "accept": "application/json"
-    };
-
+export async function koboSDModels(host, apikey = undefined){
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${host}/sdapi/v1/sd-models`, {
             method: "GET",
-            headers: header
+            headers: {
+                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "accept": "application/json"
+            }
         });
 
         return await response.json();
     } catch (e) {
-        console.error('[Props|Info]KoboAPI: ',e);
+        console.error('[Models|SD]KoboAPI: ',e);
     }
 }
 
 /**
  * Gets configuration info for image generation, used to get loaded model name in A1111
  * @param {String} host - Kobold base URL
+ * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboSDOptions(host){
-    const url = `${host}/sdapi/v1/options`;
-    const header = {
-        "accept": "application/json"
-    };
-
+export async function koboSDOptions(host, apikey = undefined){
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${host}/sdapi/v1/options`, {
             method: "GET",
-            headers: header
+            headers: {
+                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "accept": "application/json"
+            }
         });
 
         return await response.json();
     } catch (e) {
-        console.error('[Props|Info]KoboAPI: ',e);
+        console.error('[Options|SD]KoboAPI: ',e);
     }
 }
 
 /**
  * Gets a list of supported samplers.
  * @param {String} host - Kobold base URL
+ * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboSDSamplers(host){
-    const url = `${host}/sdapi/v1/samplers`;
-    const header = {
-        "accept": "application/json"
-    };
-
+export async function koboSDSamplers(host, apikey = undefined){
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${host}/sdapi/v1/samplers`, {
             method: "GET",
-            headers: header
+            headers: {
+                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "accept": "application/json"
+            }
         });
 
         return await response.json();
     } catch (e) {
-        console.error('[Props|Info]KoboAPI: ',e);
+        console.error('[Samplers|SD]KoboAPI: ',e);
     }
 }
