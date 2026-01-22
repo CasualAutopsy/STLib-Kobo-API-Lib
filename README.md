@@ -2,7 +2,7 @@
 </br>This extension does nothing on its own. This is an extension dependency.
 
 # Kobold API Library
-An extension designed to extend STscript with commands that make use of KCpp's API endpoints.
+A function library for SillyTavern to help extension developers with using KoboldCpp API endpoints.
 
 ## Installation:
 1. Extensions menu -> `Install extension`.
