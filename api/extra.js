@@ -38,7 +38,7 @@ export async function koboPerfInfo(host, apikey= undefined){
 
         return await response.json();
     } catch (e) {
-        console.error('KCppLibs:',e);
+        console.error('[Performance Info|Extra]KoboAPI: ',e);
     }
 }
 
@@ -67,7 +67,7 @@ export async function koboTokenize(host, apikey= undefined, prompt){
 
         return await response.json();
     } catch (e) {
-        console.error('KCppLibs:',e);
+        console.error('[Tokenize|Extra]KoboAPI:',e);
     }
 }
 
@@ -96,7 +96,7 @@ export async function koboDetokenize(host, apikey = undefined, ids){
 
         return await response.json();
     } catch (e) {
-        console.error('KCppLibs:',e);
+        console.error('[Detokenize|Extra]KoboAPI:',e);
     }
 }
 
