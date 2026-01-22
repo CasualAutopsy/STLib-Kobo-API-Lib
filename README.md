@@ -11,5 +11,17 @@ A function library for SillyTavern to help extension developers with using Kobol
 https://github.com/CasualAutopsy/STLib-Kobo-API-Lib
 ```
 3. Click `Install just for me`.
-4. Done. You can now use extension that use this as a dependency.
+4. Done. You can now use extensions that use this as a dependency.
 ---
+
+## Dev Usage:
+`manifest.json`:
+***
+For the dependecny to work, set your `loading_order` above `1`.
+***
+**Importing**:
+***
+Assuming you're importing to a file that's in the extension's dir root, you add the following:
+```js
+import {kobo} from '../STLib-Kobo-API-Lib/expose.js'
+```
