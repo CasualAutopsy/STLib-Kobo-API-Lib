@@ -8,7 +8,7 @@ A function library for SillyTavern to help extension developers with using Kobol
 1. Extensions menu -> `Install extension`.
 2. Paste the following in the top textbox:
 ```
-https://github.com/CasualAutopsy/SillyTavern-KoboLib
+https://github.com/CasualAutopsy/STLib-Kobo-API-Lib
 ```
 3. Click `Install just for me`.
 4. Done. You can now use extension that use this as a dependency.
