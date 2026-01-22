@@ -4,12 +4,12 @@
  * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboVersionInfo(host, apikey= undefined){
+export async function koboVersionInfo(host, apikey= null){
     try {
         const response = await fetch(`${host}/api/extra/version`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });
@@ -26,12 +26,12 @@ export async function koboVersionInfo(host, apikey= undefined){
  * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboPerfInfo(host, apikey= undefined){
+export async function koboPerfInfo(host, apikey= null){
     try {
         const response = await fetch(`${host}/api/extra/perf`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });
@@ -49,7 +49,7 @@ export async function koboPerfInfo(host, apikey= undefined){
  * @param {String} prompt - Prompt to tokenize
  * @returns {Promise<any>}
  */
-export async function koboTokenize(host, apikey= undefined, prompt){
+export async function koboTokenize(host, apikey= null, prompt){
     const payload = {
         "prompt": prompt
     };
@@ -58,7 +58,7 @@ export async function koboTokenize(host, apikey= undefined, prompt){
         const response = await fetch(`${host}/api/extra/perf`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -78,7 +78,7 @@ export async function koboTokenize(host, apikey= undefined, prompt){
  * @param {Array<number>} ids - IDs to convert
  * @returns {Promise<any>}
  */
-export async function koboDetokenize(host, apikey = undefined, ids){
+export async function koboDetokenize(host, apikey = null, ids){
     const payload = {
         "ids": ids
     };
@@ -87,7 +87,7 @@ export async function koboDetokenize(host, apikey = undefined, ids){
         const response = await fetch(`${host}/api/extra/perf`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -108,7 +108,7 @@ export async function koboDetokenize(host, apikey = undefined, ids){
  * @param {Boolean} [truncate=true]
  * @returns {Promise<obj>}
  */
-export async function koboEmbedding(host, apikey = undefined, docs, truncate = true) {
+export async function koboEmbedding(host, apikey = null, docs, truncate = true) {
     try {
         docs = JSON.parse(docs);
 
@@ -131,7 +131,7 @@ export async function koboEmbedding(host, apikey = undefined, docs, truncate = t
         const response = await fetch(`${host}/api/extra/embeddings`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -151,7 +151,7 @@ export async function koboEmbedding(host, apikey = undefined, docs, truncate = t
  * @param {Object|String} schema - JSON Schema
  * @returns {Promise<obj>}
  */
-export async function koboJSONtoGrammar(host, apikey = undefined, schema){
+export async function koboJSONtoGrammar(host, apikey = null, schema){
     if (typeof schema === 'string') {
         schema = JSON.parse(schema);
     }
@@ -164,7 +164,7 @@ export async function koboJSONtoGrammar(host, apikey = undefined, schema){
         const response = await fetch(`${host}/api/extra/json_to_grammar`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },

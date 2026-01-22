@@ -4,12 +4,12 @@
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboListOptions(host, apikey= undefined){
+export async function koboListOptions(host, apikey= null){
     try {
         const response = await fetch(`${host}/api/admin/list_options`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });

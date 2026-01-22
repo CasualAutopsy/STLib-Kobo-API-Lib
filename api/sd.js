@@ -6,12 +6,12 @@
  * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboSDModels(host, apikey = undefined){
+export async function koboSDModels(host, apikey = null){
     try {
         const response = await fetch(`${host}/sdapi/v1/sd-models`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });
@@ -28,12 +28,12 @@ export async function koboSDModels(host, apikey = undefined){
  * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboSDOptions(host, apikey = undefined){
+export async function koboSDOptions(host, apikey = null){
     try {
         const response = await fetch(`${host}/sdapi/v1/options`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });
@@ -50,12 +50,12 @@ export async function koboSDOptions(host, apikey = undefined){
  * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboSDSamplers(host, apikey = undefined){
+export async function koboSDSamplers(host, apikey = null){
     try {
         const response = await fetch(`${host}/sdapi/v1/samplers`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });

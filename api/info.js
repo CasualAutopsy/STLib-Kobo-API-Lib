@@ -4,12 +4,12 @@
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboPropsInfo(host, apikey = undefined){
+export async function koboPropsInfo(host, apikey = null){
     try {
         const response = await fetch(`${host}/props`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });
@@ -26,12 +26,12 @@ export async function koboPropsInfo(host, apikey = undefined){
  * @param {String} apikey - API authorization key
  * @returns {Promise<any>}
  */
-export async function koboServiceInfo(host, apikey = undefined){
+export async function koboServiceInfo(host, apikey = null){
     try {
         const response = await fetch(`${host}/.well-known/serviceinfo`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== undefined ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
         });
