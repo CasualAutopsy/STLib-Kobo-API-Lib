@@ -2,19 +2,17 @@
  * Retrieve the KoboldCpp backend version and active modules
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
- * @returns {Promise<any>}
+ * @returns {Promise<obj>}
  */
-export async function koboVersionInfo(host, apikey= null){
+async function koboVersionInfo(host, apikey = null){
     try {
-        const response = await fetch(`${host}/api/extra/version`, {
+        return (await fetch(`${host}/api/extra/version`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Version Info|Extra]KoboAPI: ',e);
     }
@@ -24,19 +22,17 @@ export async function koboVersionInfo(host, apikey= null){
  * Retrieve the KoboldCpp recent performance information
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
- * @returns {Promise<any>}
+ * @returns {Promise<obj>}
  */
-export async function koboPerfInfo(host, apikey= null){
+async function koboPerfInfo(host, apikey = null){
     try {
-        const response = await fetch(`${host}/api/extra/perf`, {
+        return (await fetch(`${host}/api/extra/perf`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Performance Info|Extra]KoboAPI: ',e);
     }
@@ -47,25 +43,21 @@ export async function koboPerfInfo(host, apikey= null){
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
  * @param {String} prompt - Prompt to tokenize
- * @returns {Promise<any>}
+ * @returns {Promise<obj>}
  */
-export async function koboTokenize(host, apikey= null, prompt){
-    const payload = {
-        "prompt": prompt
-    };
-
+async function koboTokenize(host, apikey= null, prompt){
     try {
-        const response = await fetch(`${host}/api/extra/perf`, {
+        return (await fetch(`${host}/api/extra/perf`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
-        });
-
-        return await response.json();
+            body: JSON.stringify({
+                "prompt": prompt
+            })
+        })).json();
     } catch (e) {
         console.error('[Tokenize|Extra]KoboAPI:',e);
     }
@@ -75,26 +67,22 @@ export async function koboTokenize(host, apikey= null, prompt){
  * Converts an array of token IDs into a string.
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
- * @param {Array<number>} ids - IDs to convert
- * @returns {Promise<any>}
+ * @param {Array<number>|String} ids - IDs to convert
+ * @returns {Promise<obj>}
  */
-export async function koboDetokenize(host, apikey = null, ids){
-    const payload = {
-        "ids": ids
-    };
-
+async function koboDetokenize(host, apikey = null, ids){
     try {
-        const response = await fetch(`${host}/api/extra/perf`, {
+        return (await fetch(`${host}/api/extra/perf`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
-        });
-
-        return await response.json();
+            body: JSON.stringify({
+                "ids": typeof ids == "string" ? JSON.parse(ids) : ids
+            })
+        })).json();
     } catch (e) {
         console.error('[Detokenize|Extra]KoboAPI:',e);
     }
@@ -108,7 +96,7 @@ export async function koboDetokenize(host, apikey = null, ids){
  * @param {Boolean} [truncate=true]
  * @returns {Promise<obj>}
  */
-export async function koboEmbedding(host, apikey = null, docs, truncate = true) {
+async function koboEmbedding(host, apikey = null, docs, truncate = true) {
     try {
         docs = JSON.parse(docs);
 
@@ -121,24 +109,20 @@ export async function koboEmbedding(host, apikey = null, docs, truncate = true) 
         }
     }
 
-    const payload = {
-        "model": "kcpp",
-        "input": docs,
-        "truncate": truncate
-    };
-
     try {
-        const response = await fetch(`${host}/api/extra/embeddings`, {
+        return (await fetch(`${host}/api/extra/embeddings`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
-        });
-
-        return await response.json();
+            body: JSON.stringify({
+                "model": "kcpp",
+                "input": docs,
+                "truncate": truncate
+            })
+        })).json();
     } catch (e) {
         console.error('[Embeddings|Extra]KoboAPI: ',e);
     }
@@ -151,31 +135,32 @@ export async function koboEmbedding(host, apikey = null, docs, truncate = true) 
  * @param {Object|String} schema - JSON Schema
  * @returns {Promise<obj>}
  */
-export async function koboJSONtoGrammar(host, apikey = null, schema){
-    if (typeof schema === 'string') {
-        schema = JSON.parse(schema);
-    }
-
-    const payload = {
-        "schema": schema
-    };
-
+async function koboJSONtoGrammar(host, apikey = null, schema){
     try {
-        const response = await fetch(`${host}/api/extra/json_to_grammar`, {
+        return (await fetch(`${host}/api/extra/json_to_grammar`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
-        });
-
-        return await response.json();
+            body: JSON.stringify({
+                "schema": typeof schema === 'string' ? JSON.parse(schema) : schema
+            })
+        })).json();
     } catch (e) {
         console.error('[JSONtoBNF|Extra]KoboAPI: ',e);
     }
 }
 
-
-
+/**
+ * Extended API unique to KoboldCpp
+ */
+export const extra = {
+    version: koboVersionInfo,
+    perf: koboPerfInfo,
+    tokenize: koboTokenize,
+    detokenize: koboDetokenize,
+    embedding: koboEmbedding,
+    jsontobnf: koboJSONtoGrammar
+};

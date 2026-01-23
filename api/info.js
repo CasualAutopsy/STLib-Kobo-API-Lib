@@ -4,17 +4,15 @@
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboPropsInfo(host, apikey = null){
+async function koboPropsInfo(host, apikey = null){
     try {
-        const response = await fetch(`${host}/props`, {
+        return (await fetch(`${host}/props`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Props|Info]KoboAPI: ',e);
     }
@@ -24,20 +22,26 @@ export async function koboPropsInfo(host, apikey = null){
  * Retrieve the common API identity provider
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
- * @returns {Promise<any>}
+ * @returns {Promise<obj>}
  */
-export async function koboServiceInfo(host, apikey = null){
+async function koboServiceInfo(host, apikey = null){
     try {
-        const response = await fetch(`${host}/.well-known/serviceinfo`, {
+        return (await fetch(`${host}/.well-known/serviceinfo`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Service|Info]KoboAPI: ',e);
     }
 }
+
+/**
+ * Common identity API for LLM services
+ */
+export const info = {
+    props: koboPropsInfo,
+    service: koboServiceInfo
+};

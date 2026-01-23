@@ -4,18 +4,23 @@
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboListOptions(host, apikey= null){
+async function koboListOptions(host, apikey= null){
     try {
-        const response = await fetch(`${host}/api/admin/list_options`, {
+        return (await fetch(`${host}/api/admin/list_options`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[List .kcpps|Admin]KoboAPI: ',e);
     }
 }
+
+/**
+ * KoboldCpp admin API
+ */
+export const admin = {
+    listoptions: koboListOptions
+};

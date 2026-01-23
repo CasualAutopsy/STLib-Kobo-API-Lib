@@ -4,17 +4,15 @@
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboMaxPrompt(host, apikey= null){
+async function koboMaxPrompt(host, apikey = null){
     try {
-        const response = await fetch(`${host}/api/v1/config/max_context_length`, {
+        return (await fetch(`${host}/api/v1/config/max_context_length`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Max Prompt|United]KoboAPI: ',e);
     }
@@ -26,17 +24,15 @@ export async function koboMaxPrompt(host, apikey= null){
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboMaxGen(host, apikey= null){
+async function koboMaxGen(host, apikey = null){
     try {
-        const response = await fetch(`${host}/api/v1/config/max_length`, {
+        return (await fetch(`${host}/api/v1/config/max_length`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Max Gen|United]KoboAPI: ',e);
     }
@@ -54,33 +50,31 @@ export async function koboMaxGen(host, apikey= null){
  * @param {Boolean} quiet - Quiet gen (hide generation parameters from terminal output)
  * @returns {Promise<obj>}
  */
-export async function koboGeneration(
+async function koboGeneration(
     host, apikey = null,
     prompt = "", samplers = null,
     genkey = null, quiet = null
 ){
     const payload = {
         "prompt": prompt,
-        "genkey": genkey !== null ? genkey : "",
-        "quiet": quiet !== null ? quiet : false
+        "genkey": genkey != null ? genkey : "",
+        "quiet": quiet != null ? quiet : false
     };
 
-    if (typeof samplers == "object") {
-        Object.assign(payload, samplers);
+    if (typeof samplers != null) {
+        Object.assign(payload, typeof samplers == "string" ? JSON.parse(samplers) : samplers);
     }
 
     try {
-        const response = await fetch(`${host}/api/v1/generate`, {
+        return (await fetch(`${host}/api/v1/generate`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
+                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
                 "accept": "application/json",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(payload)
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Generation|United]KoboAPI: ',e);
     }
@@ -94,17 +88,15 @@ export async function koboGeneration(
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboUnitedVersion(host, apikey= null){
+async function koboUnitedVersion(host, apikey = null){
     try {
-        const response = await fetch(`${host}/api/v1/info/version`, {
+        return (await fetch(`${host}/api/v1/info/version`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Version|United]KoboAPI: ',e);
     }
@@ -116,18 +108,27 @@ export async function koboUnitedVersion(host, apikey= null){
  * @param {String} apikey - API authorization key
  * @returns {Promise<obj>}
  */
-export async function koboCurrentModel(host, apikey = null){
+async function koboCurrentModel(host, apikey = null){
     try {
-        const response = await fetch(`${host}/api/v1/model`, {
+        return (await fetch(`${host}/api/v1/model`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
                 "accept": "application/json"
             }
-        });
-
-        return await response.json();
+        })).json();
     } catch (e) {
         console.error('[Model|United]KoboAPI: ',e);
     }
 }
+
+/**
+ * KoboldAI United compatible API core endpoints
+ */
+export const united = {
+    maxprompt: koboMaxPrompt,
+    maxgen: koboMaxGen,
+    generate: koboGeneration,
+    version: koboUnitedVersion,
+    model: koboCurrentModel
+};
