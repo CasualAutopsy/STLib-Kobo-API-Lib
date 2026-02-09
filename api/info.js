@@ -1,3 +1,6 @@
+import { kobomethods } from './methods.js';
+
+
 /**
  * Returns the Jinja template stored in the GGUF model, if found
  * @param {String} host - Kobold base URL
@@ -5,17 +8,7 @@
  * @returns {Promise<obj>}
  */
 async function koboPropsInfo(host, apikey = null){
-    try {
-        return (await fetch(`${host}/props`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Props|Info]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'props', apikey);
 }
 
 /**
@@ -25,17 +18,7 @@ async function koboPropsInfo(host, apikey = null){
  * @returns {Promise<obj>}
  */
 async function koboServiceInfo(host, apikey = null){
-    try {
-        return (await fetch(`${host}/.well-known/serviceinfo`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Service|Info]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, '.well-known/serviceinfo', apikey);
 }
 
 /**

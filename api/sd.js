@@ -1,3 +1,5 @@
+import { kobomethods } from './methods.js';
+
 /**
  * Gets a list of image generation models
  *
@@ -7,17 +9,7 @@
  * @returns {Promise<any>}
  */
 async function koboSDModels(host, apikey = null){
-    try {
-        return  (await fetch(`${host}/sdapi/v1/sd-models`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Models|SD]KoboAPI: ',e);
-    }
+    return kobomethods.get(host,'sdapi/v1/sd-models', apikey);
 }
 
 /**
@@ -27,17 +19,7 @@ async function koboSDModels(host, apikey = null){
  * @returns {Promise<any>}
  */
 async function koboSDOptions(host, apikey = null){
-    try {
-        return  (await fetch(`${host}/sdapi/v1/options`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Options|SD]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'sdapi/v1/options', apikey);
 }
 
 /**
@@ -47,17 +29,7 @@ async function koboSDOptions(host, apikey = null){
  * @returns {Promise<any>}
  */
 async function koboSDSamplers(host, apikey = null){
-    try {
-        return (await fetch(`${host}/sdapi/v1/samplers`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Samplers|SD]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'sdapi/v1/samplers', apikey);
 }
 
 /**

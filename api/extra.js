@@ -1,41 +1,23 @@
+import { kobomethods } from './methods.js';
+
 /**
  * Retrieve the KoboldCpp backend version and active modules
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
- * @returns {Promise<obj>}
+ * @returns {Promise<Object>}
  */
 async function koboVersionInfo(host, apikey = null){
-    try {
-        return (await fetch(`${host}/api/extra/version`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Version Info|Extra]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'api/extra/version', apikey);
 }
 
 /**
  * Retrieve the KoboldCpp recent performance information
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
- * @returns {Promise<obj>}
+ * @returns {Promise<Object>}
  */
 async function koboPerfInfo(host, apikey = null){
-    try {
-        return (await fetch(`${host}/api/extra/perf`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Performance Info|Extra]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'api/extra/perf', apikey);
 }
 
 /**
@@ -43,24 +25,10 @@ async function koboPerfInfo(host, apikey = null){
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
  * @param {String} prompt - Prompt to tokenize
- * @returns {Promise<obj>}
+ * @returns {Promise<Object>}
  */
-async function koboTokenize(host, apikey= null, prompt){
-    try {
-        return (await fetch(`${host}/api/extra/perf`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
-                "accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "prompt": prompt
-            })
-        })).json();
-    } catch (e) {
-        console.error('[Tokenize|Extra]KoboAPI:',e);
-    }
+async function koboTokenize(host, apikey = null, prompt){
+    return kobomethods.post(host, 'api/extra/tokenize', {"prompt": prompt}, apikey);
 }
 
 /**
@@ -68,24 +36,10 @@ async function koboTokenize(host, apikey= null, prompt){
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
  * @param {Array<number>|String} ids - IDs to convert
- * @returns {Promise<obj>}
+ * @returns {Promise<Object>}
  */
 async function koboDetokenize(host, apikey = null, ids){
-    try {
-        return (await fetch(`${host}/api/extra/perf`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "ids": typeof ids == "string" ? JSON.parse(ids) : ids
-            })
-        })).json();
-    } catch (e) {
-        console.error('[Detokenize|Extra]KoboAPI:',e);
-    }
+    return kobomethods.post(host, 'api/extra/detokenize', {"ids": typeof ids == "string" ? JSON.parse(ids) : ids}, apikey);
 }
 
 /**
@@ -133,24 +87,10 @@ async function koboEmbedding(host, apikey = null, docs, truncate = true) {
  * @param {String} host - Kobold base URL
  * @param {String} apikey - API authorization key
  * @param {Object|String} schema - JSON Schema
- * @returns {Promise<obj>}
+ * @returns {Promise<Object>}
  */
 async function koboJSONtoGrammar(host, apikey = null, schema){
-    try {
-        return (await fetch(`${host}/api/extra/json_to_grammar`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "schema": typeof schema === 'string' ? JSON.parse(schema) : schema
-            })
-        })).json();
-    } catch (e) {
-        console.error('[JSONtoBNF|Extra]KoboAPI: ',e);
-    }
+    return kobomethods.post(host, 'api/extra/json_to_grammar', {"schema": typeof schema === 'string' ? JSON.parse(schema) : schema}, apikey);
 }
 
 /**

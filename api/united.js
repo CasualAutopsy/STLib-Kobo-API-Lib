@@ -1,3 +1,5 @@
+import { kobomethods } from './methods.js';
+
 /**
  * Retrieve the current max context length setting value that public backends see
  * @param {String} host - Kobold base URL
@@ -5,17 +7,7 @@
  * @returns {Promise<obj>}
  */
 async function koboMaxPrompt(host, apikey = null){
-    try {
-        return (await fetch(`${host}/api/v1/config/max_context_length`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Max Prompt|United]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'api/v1/config/max_context_length', apikey);
 }
 
 /**
@@ -25,17 +17,7 @@ async function koboMaxPrompt(host, apikey = null){
  * @returns {Promise<obj>}
  */
 async function koboMaxGen(host, apikey = null){
-    try {
-        return (await fetch(`${host}/api/v1/config/max_length`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey != null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Max Gen|United]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'api/v1/config/max_length', apikey);
 }
 
 /**
@@ -89,17 +71,7 @@ async function koboGeneration(
  * @returns {Promise<obj>}
  */
 async function koboUnitedVersion(host, apikey = null){
-    try {
-        return (await fetch(`${host}/api/v1/info/version`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Version|United]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'api/v1/info/version', apikey);
 }
 
 /**
@@ -109,17 +81,7 @@ async function koboUnitedVersion(host, apikey = null){
  * @returns {Promise<obj>}
  */
 async function koboCurrentModel(host, apikey = null){
-    try {
-        return (await fetch(`${host}/api/v1/model`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${apikey !== null ? apikey : "None"}`,
-                "accept": "application/json"
-            }
-        })).json();
-    } catch (e) {
-        console.error('[Model|United]KoboAPI: ',e);
-    }
+    return kobomethods.get(host, 'api/v1/model', apikey);
 }
 
 /**
